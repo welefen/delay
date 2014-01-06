@@ -2,3 +2,5 @@ sftp-config.json
 App/Runtime/Data/*.css
 App/Runtime/Data/*.js
 App/Runtime/Data/*.img
+output/
+*.tar.gz

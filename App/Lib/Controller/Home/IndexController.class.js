@@ -27,7 +27,10 @@ module.exports = Controller(function(){
 
     return {
         indexAction: function(){
-            this.end("home page");
+            if (this.get("type")) {
+                return this.delayAction();
+            };
+            this.display();
         },
         
         /**
