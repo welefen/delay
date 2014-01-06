@@ -90,6 +90,9 @@ module.exports = Controller(function(){
         			var execContent = this.getExecTimeContent();
         			content = getRepeatContent('/**js, by welefen**/', this.size * 1024 - execContent.length, true) + execContent;
         			break;
+                case 'html':
+                    content = getRepeatContent('<!--html, by welefen-->', this.size);
+                    break;
         		case 'img':
                     var content = this.getImgStream();
         			if (is_promise(content)) {
@@ -152,6 +155,9 @@ module.exports = Controller(function(){
         		case 'img':
         			type = 'image/jpeg';
         			break;
+                case 'html':
+                    type = 'text/html';
+                    break;
         		default:
         			break; 
         	}
