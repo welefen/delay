@@ -60,9 +60,9 @@ module.exports = Controller(function(){
         	if (errmsg) {
         		this.http.res.statusCode = 403;
         		this.end(errmsg);
-        		return when.defer().promise;
+        		return getDefer().promise;
         	};
-        	return get_promise();
+        	return getPromise();
         },
         /**
          * 获取缓存文件内容
@@ -78,7 +78,7 @@ module.exports = Controller(function(){
          */
         getContentStream: function(){
         	var filename = this.getFilename();
-        	if (is_file(DATA_PATH + "/" + filename)) {
+        	if (isFile(DATA_PATH + "/" + filename)) {
         		return fs.createReadStream(DATA_PATH + "/" + filename);
         	};
         	var content = "";
@@ -100,7 +100,7 @@ module.exports = Controller(function(){
                     };
         			break;
         	}
-        	file_put_contents(DATA_PATH + "/" + filename, content);
+        	setFileContent(DATA_PATH + "/" + filename, content);
         	return fs.createReadStream(DATA_PATH + "/" + filename);
         },
         /**
@@ -115,7 +115,7 @@ module.exports = Controller(function(){
             };
         	var sourceFile = RESOURCE_PATH + "/resource/img/delay.jpg";
         	
-            var deferred = when.defer();
+            var deferred = getDefer();
         	
             var stream = fs.createReadStream(sourceFile , {
                 'start':0, 
@@ -175,7 +175,7 @@ module.exports = Controller(function(){
                 if (self.error) {
                     self.http.res.statusCode = 500;
                 };
-        		get_promise(stream).then(function(stream){
+        		getPromise(stream).then(function(stream){
         			setTimeout(function(){
 	        			stream.pipe(self.http.res);
 			            stream.on("end", function(){

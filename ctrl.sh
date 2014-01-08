@@ -4,6 +4,8 @@ NODE=`which node`
 # get action
 ACTION=$1
 
+PID_FILE='./App/Runtime/Data/app.pid';
+
 # help
 usage() {
   echo "Usage: ./ctrl.sh {start|stop|restart}"
@@ -11,8 +13,8 @@ usage() {
 }
 
 get_pid() {
-  if [ -f './App/Runtime/Data/app.pid' ]; then
-    echo `cat ./App/Runtime/Data/app.pid`
+  if [ -f $PID_FILE ]; then
+    echo `cat $PID_FILE`
   fi
 }
 
@@ -36,6 +38,7 @@ stop() {
   else
     echo "server is stopping ..."
     kill -15 $pid
+    rm -rf $PID_FILE;
     echo "server stopped !"
   fi
 }
