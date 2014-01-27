@@ -169,13 +169,13 @@ module.exports = Controller(function(){
          */
         delayAction: function(){
         	var self = this;
-        	this.checkPars().then(function(){
+        	return this.checkPars().then(function(){
         		self.setContentType();
         		var stream = self.getContentStream();
                 if (self.error) {
                     self.http.res.statusCode = 500;
                 };
-        		getPromise(stream).then(function(stream){
+        		return getPromise(stream).then(function(stream){
         			setTimeout(function(){
 	        			stream.pipe(self.http.res);
 			            stream.on("end", function(){
