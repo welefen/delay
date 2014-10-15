@@ -38,7 +38,7 @@ module.exports = Controller(function(){
 		 * @return {[type]} [description]
 		 */
 		checkPars: function(){
-			this.type = this.get('type').toLowerCase() || "js";
+			this.rtype = this.get('type').toLowerCase() || "js";
 			this.size = parseInt(this.get('size'), 10) || 0; //单位为KB
 			this.time = parseFloat(this.get('time'), 10) || 0; //单位为秒
 			this.execTime = parseFloat(this.get('exec'), 10) || 0; //单位为秒
@@ -48,7 +48,7 @@ module.exports = Controller(function(){
 			};
 
 			var errmsg = "";
-			if (supportTypeList.indexOf(this.type) == -1) {
+			if (supportTypeList.indexOf(this.rtype) == -1) {
 				errmsg = "type value error";
 			}else if (this.size < 0 || this.size > 100) {
 				errmsg = 'size value error';
@@ -69,7 +69,7 @@ module.exports = Controller(function(){
 		 * @return {[type]} [description]
 		 */
 		getFilename: function(){
-			var filename = this.size + "_" + this.execTime + "_" + this.error + "." + this.type;
+			var filename = this.size + "_" + this.execTime + "_" + this.error + "." + this.rtype;
 			return filename;
 		},
 		/**
@@ -82,7 +82,7 @@ module.exports = Controller(function(){
 				return fs.createReadStream(DATA_PATH + "/" + filename);
 			};
 			var content = "";
-			switch(this.type){
+			switch(this.rtype){
 				case 'css':
 					content = getRepeatContent('/**css, by welefen**/', this.size);
 					break;
@@ -145,7 +145,7 @@ module.exports = Controller(function(){
 		 */
 		setContentType: function(){
 			var type = '';
-			switch(this.type){
+			switch(this.rtype){
 				case 'js':
 					type = 'text/javascript';
 					break;
